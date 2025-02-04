@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fafafa;
+        }
+
+        header {
+            background-color: blueviolet;
+            padding: 15px 30px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color:brown;
+            text-decoration: none;
+        }
+
+        header .search-bar input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 300px;
+        }
+
+        header .nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        header .nav a {
+            color: black;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        header .nav a:hover {
+            color:black;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            padding: 0 20px;
+        }
+
+        .feed {
+            flex: 1;
+            max-width: 600px;
+            margin-right: 20px;
+        }
+
+        .post {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .post-header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .post-header .username {
+            font-weight: bold;
+        }
+
+        .post-body img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .post-footer {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color:black;
+        }
+
+        .post-footer .likes {
+            font-weight: bold;
+        }
+
+        .post-footer .comments {
+            font-weight: bold;
+        }
+
+        .post-footer .timestamp {
+            font-style: italic;
+        }
+
+        .post-caption {
+            margin-top: 10px;
+            font-weight: normal;
+            color:black;
+        }
+
+        .sidebar {
+            width: 300px;
+            background-color: whitesmoke;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .sidebar .user-info {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar .user-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .sidebar .user-info .username {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .sidebar .suggested-follow {
+            margin-top: 10px;
+        }
+
+        .sidebar .suggested-follow p {
+            font-weight: bold;
+        }
+
+        .sidebar .suggested-follow .suggestion {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .sidebar .suggested-follow .suggestion img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .sidebar .suggested-follow .suggestion button {
+            background-color:blue;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .sidebar .suggested-follow .suggestion button:hover {
+            background-color: #3a59e2;
+        }
+
+        .recent-activity {
+            background-color: whitesmoke;
+            padding: 20px;
+            margin-top: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .recent-activity h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .recent-activity ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .recent-activity li {
+            margin-bottom: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .recent-activity li img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .recent-activity li .activity-text {
+            font-size: 14px;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="#" class="logo">Instagram</a>
+    <div class="search-bar">
+        <input type="text" placeholder="Search">
+    </div>
+    <div class="nav">
+        <a href="#">Home</a>
+        <a href="#">Messages</a>
+        <a href="#">Explore</a>
+        <a href="#">Profile</a>
+    </div>
+</header>
+
+<div class="container">
+    <div class="feed">
+        <!-- Post 1 -->
+        <div class="post">
+            <div class="post-header">
+                <img src="https://tse1.mm.bing.net/th?id=OIP.yvgwmXnYLx47epDYUd9EfQHaHa&pid=Api&P=0&h=180" alt="user-avatar">
+                <div class="username">Royal Challengers Bengaluru</div>
+            </div>
+            <div class="post-body">
+                <img src="https://pbs.twimg.com/media/F1Kze4pWIAArW1Y.jpg" alt="post-image">
+            </div>
+            <div class="post-footer">
+                <div class="likes">10M  likes</div>
+                <div class="comments">45K comments</div>
+                <div class="timestamp">2 hours ago</div>
+            </div>
+            <div class="post-caption">Win or lose… always love RCB! #Ee sala cup namde</div>
+        </div>
+        <!-- Post 2 -->
+        <div class="post">
+            <div class="post-header">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuSlp1AxRKT1Ii5xYiLB8RLfZCDSiCrWpMnA&s" alt="user-avatar">
+                <div class="username">Virat kohli</div>
+            </div>
+            <div class="post-body">
+                <img src="https://cdn-wp.thesportsrush.com/2023/09/d87496f5-virat-kohli-and-kl-rahul.jpg?format=auto&w=3840&q=75" alt="post-image">
+            </div>
+            <div class="post-footer">
+                <div class="likes">5M likes</div>
+                <div class="comments">50k comments</div>
+                <div class="timestamp">3 hours ago</div>
+            </div>
+            <div class="post-caption">Partners 👑🎈#brothers</div>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="user-info">
+            <img src="" alt="user-avatar">
+            <div class="username">chandu_kulashekar</div>
+        </div>
+
+        <div class="suggested-follow">
+            <p>Suggested for you</p>
+            <!-- Suggested User 1 -->
+            <div class="suggestion">
+                <img src="https://w0.peakpx.com/wallpaper/111/401/HD-wallpaper-ab-de-villiers-abd-abdevilliers-cricket-ipl-iplt20-rcb-royalchallengersbangalore-superman.jpg" alt="suggested-user">
+                <div>AB de Villiers
+                </div>
+                <button>Follow</button>
+            </div>
+            <!-- Suggested User 2 -->
+            <div class="suggestion">
+                <img src="data:image/jpeg;base64,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" alt="suggested-user">
+                <div>KL Rahul</div>
+                <button>Follow</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="recent-activity">
+    <h3>Recent Activity</h3>
+    <ul>
+        <li>
+            <img src="https://tse4.mm.bing.net/th?id=OIP.XOHcQduXaUqu8uQJBnuIXwHaHa&pid=Api&P=0&h=180" alt="activity-user">
+            <div class="activity-text"><strong>Mahesh_Babu</strong> you might also like</div>
+        </li>
+        <li>
+            <img src="https://tse4.mm.bing.net/th?id=OIP.9j_Fv_4kmBF2VA7De8_94AHaHA&pid=Api&P=0&h=180" alt="activity-user">
+            <div class="activity-text"><strong>Priyanka_Mohan</strong> you might also like</div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>    
