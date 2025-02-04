@@ -2,7 +2,10 @@ pipeline {
     agent any
 
     environment {
-        TOMCAT_SERVER = 'root@172.31.6.91'   
+        TOMCAT_SERVER = 'root@172.31.6.91'
+        TOMCAT_DIR = '/root/apache-tomcat-9.0.98/webapps/'
+        WAR_FILE = '/var/lib/jenkins/workspace/Pip/target/RCB.war'
+        APP_DIR = '/var/lib/jenkins/workspace/Pip/target/RCB'   
         CREDENTIALS_ID = 'ssh'  
     }
     tools{
@@ -10,6 +13,12 @@ pipeline {
     }
 
     stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/chandukulashekar/RCB_webapplication.git' 
+            }
+        }
+
         stage('Build with Maven') {
             steps {
                 sh 'mvn clean package'
@@ -21,8 +30,8 @@ pipeline {
                 script {
                     sshagent([CREDENTIALS_ID]) {
                         sh """
-                            scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/Pip/target/RCB.war root@172.31.6.91:/root/apache-tomcat-9.0.98/webapps/
-                            scp -r -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/Pip/target/RCB root@172.31.6.91:/root/apache-tomcat-9.0.98/webapps/
+                            scp -o StrictHostKeyChecking=no ${WAR_FILE} ${TOMCAT_SERVER}:${TOMCAT_DIR}
+                            scp -r -o StrictHostKeyChecking=no ${APP_DIR} ${TOMCAT_SERVER}:${TOMCAT_DIR}
                         """
                     }
                 }
