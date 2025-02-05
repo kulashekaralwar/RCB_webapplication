@@ -13,7 +13,7 @@ pipeline {
         }
         stage('a'){
             steps{
-                sh 'cp /var/lib/jenkins/workspace/dockerisedcontainer/Dockerfile abc/'
+                sh 'cp /var/lib/jenkins/workspace/dockerisedcontainer/Dockerfile abc/Dockerfile'
             }
         }
         stage('build image'){
