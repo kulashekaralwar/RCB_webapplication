@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        TOMCAT_SERVER = 'root@172.31.6.91'
+        TOMCAT_SERVER = 'root@172.31.10.131'
         TOMCAT_DIR = '/root/apache-tomcat-9.0.98/webapps/'
         WAR_FILE = '/var/lib/jenkins/workspace/Pip/target/RCB.war'
         APP_DIR = '/var/lib/jenkins/workspace/Pip/target/RCB'   
