@@ -27,16 +27,6 @@ pipeline {
                 sh 'docker push kulashekaralwarn/app'
             }
         }
-        stage('remove'){
-            steps{
-                sh 'docker rmi -f $(docker images -q)'
-            }
-        }
-        stage('pull'){
-            steps{
-                sh 'docker pull kulashekaralwarn/app'
-            }
-        }
         stage('check'){
             steps{
                 script{
@@ -46,6 +36,16 @@ pipeline {
                     sh "docker rm chandu"
                     }
                 }
+            }
+        }
+        stage('remove'){
+            steps{
+                sh 'docker rmi -f $(docker images -q)'
+            }
+        }
+        stage('pull'){
+            steps{
+                sh 'docker pull kulashekaralwarn/app'
             }
         }
         stage('run'){
