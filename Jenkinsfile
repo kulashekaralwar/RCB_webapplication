@@ -50,7 +50,7 @@ pipeline {
         }
         stage('run'){
             steps{
-                sh 'docker run -it -d --name chandu -p 8081:8080 app'
+                sh 'docker run -it -d --name chandu -p 8081:8080 kulashekaralwarn/app'
             }
         }
     }
