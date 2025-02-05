@@ -1,60 +1,53 @@
 pipeline {
     agent any
 
-    environment {
-        TOMCAT_SERVER = 'root@172.31.10.131'
-        TOMCAT_DIR = '/root/apache-tomcat-9.0.98/webapps/'
-        WAR_FILE = '/var/lib/jenkins/workspace/Pip/target/RCB.war'
-        APP_DIR = '/var/lib/jenkins/workspace/Pip/target/RCB'   
-        CREDENTIALS_ID = 'ssh'  
-    }
     tools{
         maven 'maven'
     }
-
-    stages {
-        stage('Checkout Code') {
-            steps {
-                git branch: 'main', url: 'https://github.com/chandukulashekar/RCB_webapplication.git' 
-            }
-        }
-
-        stage('Build with Maven') {
-            steps {
+    stages{
+        stage('build'){
+            steps{
                 sh 'mvn clean package'
             }
+        
         }
-
-        stage('Transfer WAR to Tomcat') {
-            steps {
-                script {
-                    sshagent([CREDENTIALS_ID]) {
-                        sh """
-                            scp -o StrictHostKeyChecking=no ${WAR_FILE} ${TOMCAT_SERVER}:${TOMCAT_DIR}
-                            scp -r -o StrictHostKeyChecking=no ${APP_DIR} ${TOMCAT_SERVER}:${TOMCAT_DIR}
-                        """
-                    }
-                }
+        stage('build image'){
+            steps{
+                sh 'docker build -t app /var/lib/jenkins/workspace/dockerisedcontainer/'
             }
         }
-
-        stage('Restart Tomcat') {
-            steps {
-                script {
-                    sshagent([CREDENTIALS_ID]) {
-                        sh """
-                            ssh -o StrictHostKeyChecking=no ${TOMCAT_SERVER} <<EOF
-                            cd /root/apache-tomcat-9.0.98/bin
-                            ./shutdown.sh
-                            sleep 5
-                            ./startup.sh
-                        """
-                    }
-                }
+        stage('build image'){
+            steps{
+                sh 'docker build -t app /var/lib/jenkins/workspace/dockerisedcontainer/'
+            }
+        }
+        stage('tag'){
+            steps{
+                sh 'docker tag app kulashekaralwarn/app'
+            }
+        }
+        stage('push to dockerhub'){
+            steps{
+                 sh 'echo "@docker#123" | docker login -u "kulashekaralwarn" --password-stdin'
+                sh 'docker push kulashekaralwarn/app'
+            }
+        }
+        stage('remove'){
+            steps{
+                sh 'docker rmi app'
+            }
+        }
+        stage('remove'){
+            steps{
+                sh 'docker pull app'
+            }
+        }
+        stage('remove'){
+            steps{
+                sh 'docker run -it -d --name chandu -p 8081 app'
             }
         }
     }
-
     post {
         success {
             echo 'Deployment successful'
@@ -62,5 +55,9 @@ pipeline {
         failure {
             echo 'Deployment failed'
         }
+        always{
+            echo 'Deployed'
+        }
     }
+
 }
