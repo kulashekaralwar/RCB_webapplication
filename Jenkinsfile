@@ -6,6 +6,11 @@ pipeline {
     }
 
     stages{
+        stage('chandu code'){
+            steps{
+                git branch: 'main', url: 'https://github.com/chandukulashekar/RCB_webapplication.git'
+            }
+        }
         stage('build'){
             steps{
                 sh 'mvn clean package'
@@ -13,12 +18,7 @@ pipeline {
         }
         stage('a'){
             steps{
-                sh 'sudo cp /var/lib/jenkins/workspace/dockerisedcontainer/Dockerfile abc/Dockerfile'
-            }
-        }
-        stage('build image'){
-            steps{
-                sh 'docker build -t app abc/'
+                sh 'sudo docker build -t app .'
             }
         }
         stage('tag'){
@@ -39,12 +39,13 @@ pipeline {
         }
         stage('pull'){
             steps{
-                sh 'docker pull app'
+                sh 'echo "@docker#123" | docker login -u "kulashekaralwarn" --password-stdin'
+                sh 'docker pull kulashekaralwarn/app'
             }
         }
         stage('run'){
             steps{
-                sh 'docker run -it -d --name chandu -p 8081 app'
+                sh 'docker run -it -d --name chandu -p 8081:8080 kulashekaralwarn/app:latest'
             }
         }
     }
