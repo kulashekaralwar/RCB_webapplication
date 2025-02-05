@@ -6,11 +6,6 @@ pipeline {
     }
 
     stages{
-        stage('chandu code'){
-            steps{
-                git branch: 'main', url: 'https://github.com/chandukulashekar/RCB_webapplication.git'
-            }
-        }
         stage('build'){
             steps{
                 sh 'mvn clean package'
@@ -18,7 +13,7 @@ pipeline {
         }
         stage('a'){
             steps{
-                sh 'sudo docker build -t app .'
+                sh 'sudo docker build -t app /var/lib/jenkins/workspace/dockerisedcontainer/'
             }
         }
         stage('tag'){
@@ -39,18 +34,23 @@ pipeline {
         }
         stage('pull'){
             steps{
-                sh 'echo "@docker#123" | docker login -u "kulashekaralwarn" --password-stdin'
-                sh 'docker pull kulashekaralwarn/app'
+                sh 'docker pull app'
+            }
+        }
+        stage('check'){
+            steps{
+                script{
+                    def containerExists = sh(script: "docker ps -q -f name=chandu", returnStdout: true).trim()
+                    if (containerExists) {
+                    sh "docker stop chandu"
+                    sh "docker rm chandu"
+                    }
+                }
             }
         }
         stage('run'){
             steps{
-                def containerExists = sh(script: "docker ps -q -f name=chandu", returnStdout: true).trim()
-                if (containerExists) {
-                    sh "docker stop chandu"
-                    sh "docker rm chandu"
-                }
-                sh 'docker run -it -d --name chandu -p 8081:8080 kulashekaralwarn/app:latest'
+                sh 'docker run -it -d --name chandu -p 8081 app'
             }
         }
     }
