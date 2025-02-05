@@ -4,12 +4,12 @@ pipeline {
     tools{
         maven 'maven'
     }
+    
     stages{
         stage('build'){
             steps{
                 sh 'mvn clean package'
             }
-        
         }
         stage('build image'){
             steps{
