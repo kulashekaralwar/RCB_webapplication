@@ -13,12 +13,12 @@ pipeline {
         }
         stage('a'){
             steps{
-                sh 'cp /var/lib/jenkins/workspace/dockerisedcontainer/Dockerfile /root/abc/'
+                sh 'cp /var/lib/jenkins/workspace/dockerisedcontainer/Dockerfile ./'
             }
         }
         stage('build image'){
             steps{
-                sh 'docker build -t app abc/'
+                sh 'docker build -t app ./'
             }
         }
         stage('tag'){
@@ -28,7 +28,7 @@ pipeline {
         }
         stage('push to dockerhub'){
             steps{
-                 sh 'echo "@docker#123" | docker login -u "kulashekaralwarn" --password-stdin'
+                sh 'echo "@docker#123" | docker login -u "kulashekaralwarn" --password-stdin'
                 sh 'docker push kulashekaralwarn/app'
             }
         }
