@@ -32,12 +32,12 @@ pipeline {
                 sh 'docker rmi app'
             }
         }
-        stage('remove'){
+        stage('pull'){
             steps{
                 sh 'docker pull app'
             }
         }
-        stage('remove'){
+        stage('run'){
             steps{
                 sh 'docker run -it -d --name chandu -p 8081 app'
             }
