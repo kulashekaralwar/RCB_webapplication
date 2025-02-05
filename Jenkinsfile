@@ -11,9 +11,14 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
+        stage('a'){
+            steps{
+                sh 'cp /var/lib/jenkins/workspace/dockerisedcontainer/Dockerfile /root/abc/'
+            }
+        }
         stage('build image'){
             steps{
-                sh 'docker build -t app /var/lib/jenkins/workspace/dockerisedcontainer/'
+                sh 'docker build -t app abc/'
             }
         }
         stage('tag'){
