@@ -45,6 +45,11 @@ pipeline {
         }
         stage('run'){
             steps{
+                def containerExists = sh(script: "docker ps -q -f name=chandu", returnStdout: true).trim()
+                if (containerExists) {
+                    sh "docker stop chandu"
+                    sh "docker rm chandu"
+                }
                 sh 'docker run -it -d --name chandu -p 8081:8080 kulashekaralwarn/app:latest'
             }
         }
