@@ -13,7 +13,7 @@ pipeline {
         }
         stage('a'){
             steps{
-                sh 'sudo docker build -t app /var/lib/jenkins/workspace/chandu/'
+                sh 'sudo docker build -t app /var/lib/jenkins/workspace/Chandu/'
             }
         }
         stage('tag'){
