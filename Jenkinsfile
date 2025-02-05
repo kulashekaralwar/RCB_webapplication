@@ -29,12 +29,12 @@ pipeline {
         }
         stage('remove'){
             steps{
-                sh 'docker rmi app'
+                sh 'docker rmi -f $(docker images -q)'
             }
         }
         stage('pull'){
             steps{
-                sh 'docker pull app'
+                sh 'docker pull kulashekaralwarn/app'
             }
         }
         stage('check'){
@@ -50,7 +50,7 @@ pipeline {
         }
         stage('run'){
             steps{
-                sh 'docker run -it -d --name chandu -p 8081 app'
+                sh 'docker run -it -d --name chandu -p 8081:8080 app'
             }
         }
     }
