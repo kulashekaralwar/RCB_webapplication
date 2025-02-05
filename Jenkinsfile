@@ -4,16 +4,11 @@ pipeline {
     tools{
         maven 'maven'
     }
-    
+
     stages{
         stage('build'){
             steps{
                 sh 'mvn clean package'
-            }
-        }
-        stage('build image'){
-            steps{
-                sh 'docker build -t app /var/lib/jenkins/workspace/dockerisedcontainer/'
             }
         }
         stage('build image'){
