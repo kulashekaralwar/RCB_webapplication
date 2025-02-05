@@ -13,12 +13,12 @@ pipeline {
         }
         stage('a'){
             steps{
-                sh 'cp /var/lib/jenkins/workspace/dockerisedcontainer/Dockerfile ./'
+                sh 'cp /var/lib/jenkins/workspace/dockerisedcontainer/Dockerfile /root/'
             }
         }
         stage('build image'){
             steps{
-                sh 'docker build -t app ./'
+                sh 'docker build -t app /root/'
             }
         }
         stage('tag'){
