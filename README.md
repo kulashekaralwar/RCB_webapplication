@@ -1,2 +1,2 @@
-This is Dockerized web application deployment using Docker, Jenkins, Tomcat.
+This is Dockerized web application deployment using Docker, Jenkins.
 
