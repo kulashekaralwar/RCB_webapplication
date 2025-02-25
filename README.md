@@ -6,7 +6,7 @@ install git
 install docker
 install jenkins
 -------------------------------------------------------
-configure jnekins
+configure jenkins
 --> provide permissions for jenkins
 visudo
 jenkins ALL=(ALL) NOPASSWD: ALL
