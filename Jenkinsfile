@@ -29,13 +29,13 @@ pipeline {
         }
         stage('Assign tag'){
             steps{
-                sh 'docker tag app kulashekaralwarn/app'
+                sh 'docker tag app reponame'
             }
         }
         stage('Push to dockerhub'){
             steps{
                 sh 'echo "passwd" | docker login -u "usrname" --password-stdin'
-                sh 'docker push kulashekaralwarn/app'
+                sh 'docker push reponame'
             }
         }
         stage('Remove images'){
@@ -45,12 +45,12 @@ pipeline {
         }
         stage('Pull image from DockerHub'){
             steps{
-                sh 'docker pull kulashekaralwarn/app'
+                sh 'docker pull image'
             }
         }
         stage('Run a container'){
             steps{
-                sh 'docker run -it -d --name chandu -p 8081:8080 kulashekaralwarn/app'
+                sh 'docker run -it -d --name chandu -p 8081:8080 reponame'
             }
         }
     }
